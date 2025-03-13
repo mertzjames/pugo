@@ -12,15 +12,17 @@ var TEST_USER = "uQiRzpo4DXghDmr9QzzfQu27cmVRsG"
 var TEST_GROUP = "gznej3rKEVAvPUxu9vvNnqpmZpokzF"
 var TEST_DEVICE = "iphone"
 
-func TestSendSimpleMessage(t *testing.T) {
+var TEST_EXPECTED_STATUS = 0
+var TEST_EXPECTED_REQUEST = ""
+var TEST_EXPECTED_ERRORS = []string{}
 
-	expected_response := BASE_RESPONSE{
-		status:  1,
-		request: "d1b094f4-3b1b-4b4b-8b1b-4b4b4b4b4b4b",
-		errors:  nil,
-	}
-
+func TestMain(m *testing.M) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		expected_response := BASE_RESPONSE{
+			status:  TEST_EXPECTED_STATUS,
+			request: TEST_EXPECTED_REQUEST,
+			errors:  TEST_EXPECTED_ERRORS,
+		}
 		respJSON, _ := json.Marshal(expected_response)
 		n, err := w.Write(respJSON)
 		if err != nil {
@@ -31,6 +33,11 @@ func TestSendSimpleMessage(t *testing.T) {
 
 	MSG_URI = ts.URL
 	http.DefaultClient = ts.Client()
+
+	m.Run()
+}
+
+func TestSendSimpleMessage(t *testing.T) {
 
 	msg := message{
 		BASE_CALL: BASE_CALL{
