@@ -14,15 +14,13 @@ var TEST_DEVICE = "iphone"
 
 func TestSendSimpleMessage(t *testing.T) {
 
-	expected_response := BASE_RESPONSE{
-		status:  1,
-		request: "d1b094f4-3b1b-4b4b-8b1b-4b4b4b4b4b4b",
-		errors:  nil,
-	}
+	resp_body := `{"status":1,"request":"7be0a529-88f0-44ba-b56e-8061ab534ead"}`
+	expected_response := BASE_RESPONSE{}
+	_ = json.Unmarshal([]byte(resp_body), &expected_response)
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		respJSON, _ := json.Marshal(expected_response)
-		n, err := w.Write(respJSON)
+
+		n, err := w.Write([]byte(resp_body))
 		if err != nil {
 			t.Errorf("test server: unexpected error after writing %d bytes: %v", n, err)
 		}

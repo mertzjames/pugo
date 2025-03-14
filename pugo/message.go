@@ -14,19 +14,19 @@ var MSG_URI = ROOT_URI + "messages.json"
 
 type message struct {
 	BASE_CALL
-	message           string    `json:"message"`
-	attachment        []byte    `json:"attachment,omitempty"`
-	attachment_base64 string    `json:"attachment_base64,omitempty"`
-	attachment_type   string    `json:"attachment_type,omitempty"`
-	device            string    `json:"device,omitempty"`
-	html              bool      `json:"html,omitempty"`
-	priority          int       `json:"priority,omitempty"`
-	sound             string    `json:"sound,omitempty"`
-	timestamp         time.Time `json:"timestamp,omitempty"`
-	title             string    `json:"title,omitempty"`
-	ttl               int       `json:"ttl,omitempty"`
-	url               string    `json:"url,omitempty"`
-	url_title         string    `json:"url_title,omitempty"`
+	message           string         `json:"message"`
+	attachment        Any[[]byte]    `json:"attachment,omitempty"`
+	attachment_base64 Any[string]    `json:"attachment_base64,omitempty"`
+	attachment_type   Any[string]    `json:"attachment_type,omitempty"`
+	device            Any[string]    `json:"device,omitempty"`
+	html              Any[bool]      `json:"html,omitempty"`
+	priority          Any[int]       `json:"priority,omitempty"`
+	sound             Any[string]    `json:"sound,omitempty"`
+	timestamp         Any[time.Time] `json:"timestamp,omitempty"`
+	title             Any[string]    `json:"title,omitempty"`
+	ttl               Any[int]       `json:"ttl,omitempty"`
+	url               Any[string]    `json:"url,omitempty"`
+	url_title         Any[string]    `json:"url_title,omitempty"`
 }
 
 func send_message(msg message) (BASE_RESPONSE, error) {
