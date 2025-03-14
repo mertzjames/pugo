@@ -1,5 +1,3 @@
-// https://pushover.net/api
-
 package pugo
 
 import (
@@ -31,6 +29,7 @@ type message struct {
 
 func send_message(msg message) (BASE_RESPONSE, error) {
 
+	// TODO: Add support for the other fields in the message struct
 	data := url.Values{
 		"token":   {msg.token},
 		"user":    {msg.user},
