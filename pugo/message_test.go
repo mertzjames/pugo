@@ -12,15 +12,19 @@ var TEST_USER = "uQiRzpo4DXghDmr9QzzfQu27cmVRsG"
 var TEST_GROUP = "gznej3rKEVAvPUxu9vvNnqpmZpokzF"
 var TEST_DEVICE = "iphone"
 
-func TestSendSimpleMessage(t *testing.T) {
+var TEST_EXPECTED_STATUS = 0
+var TEST_EXPECTED_REQUEST = ""
+var TEST_EXPECTED_ERRORS = []string{}
 
-	resp_body := `{"status":1,"request":"7be0a529-88f0-44ba-b56e-8061ab534ead"}`
-	expected_response := BASE_RESPONSE{}
-	_ = json.Unmarshal([]byte(resp_body), &expected_response)
-
+func TestMain(m *testing.M) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-		n, err := w.Write([]byte(resp_body))
+		expected_response := BASE_RESPONSE{
+			status:  TEST_EXPECTED_STATUS,
+			request: TEST_EXPECTED_REQUEST,
+			errors:  TEST_EXPECTED_ERRORS,
+		}
+		respJSON, _ := json.Marshal(expected_response)
+		n, err := w.Write(respJSON)
 		if err != nil {
 			t.Errorf("test server: unexpected error after writing %d bytes: %v", n, err)
 		}
@@ -29,6 +33,11 @@ func TestSendSimpleMessage(t *testing.T) {
 
 	MSG_URI = ts.URL
 	http.DefaultClient = ts.Client()
+
+	m.Run()
+}
+
+func TestSendSimpleMessage(t *testing.T) {
 
 	msg := message{
 		BASE_CALL: BASE_CALL{
