@@ -21,7 +21,7 @@ type BASE_RESPONSE struct {
 	Errors  *[]string `json:"errors,omitempty"`
 }
 
-func structToURLValues(s interface{}) url.Values {
+func structToURLValues(s any) url.Values {
 	// Simple function to convert a struct to a url.Values object
 	// This function will recursively process embedded structs
 	// and will process fields with a json tag but defaulting to the field name
