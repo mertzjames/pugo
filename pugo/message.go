@@ -28,7 +28,6 @@ type message struct {
 
 func send_message(msg message, r_resp *BASE_RESPONSE) error {
 
-	// TODO: Add support for the other fields in the message struct
 	data := structToURLValues(msg)
 
 	resp, err := http.PostForm(MSG_URI, data)

@@ -17,6 +17,7 @@ type BASE_CALL struct {
 type BASE_RESPONSE struct {
 	Status  int       `json:"status"`
 	Request string    `json:"request"`
+	Token   *string   `json:"token,omitempty"`
 	Errors  *[]string `json:"errors,omitempty"`
 }
 

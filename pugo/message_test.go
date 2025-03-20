@@ -69,6 +69,7 @@ func TestSendSimpleMessage(t *testing.T) {
 	if actual_response.Request != expected_response.Request {
 		t.Errorf("expected request %s, got %s", expected_response.Request, actual_response.Request)
 	}
+
 }
 
 func TestSendSimpleMessageWithDevice(t *testing.T) {
@@ -136,9 +137,12 @@ func TestSendInvalidToken(t *testing.T) {
 		t.Errorf("expected request %s, got %s", expected_response.Request, actual_response.Request)
 	}
 
-	// TODO: Fox this check
-	// if len(actual_response.errors) != len(expected_response.errors) {
-	// 	t.Errorf("expected %d num errors, got %d", len(expected_response.errors), len(actual_response.errors))
-	// }
+	if *actual_response.Token != *expected_response.Token {
+		t.Errorf("expected token %s, got %s", *expected_response.Token, *actual_response.Token)
+	}
+
+	if len(*actual_response.Errors) != len(*expected_response.Errors) {
+		t.Errorf("expected %d num errors, got %d", len(*expected_response.Errors), len(*actual_response.Errors))
+	}
 
 }
