@@ -50,10 +50,10 @@ func TestSendSimpleMessage(t *testing.T) {
 
 	msg := message{
 		BASE_CALL: BASE_CALL{
-			token: TEST_TOKEN,
-			user:  TEST_USER,
+			Token: TEST_TOKEN,
+			User:  TEST_USER,
 		},
-		message: "Simple Message Send",
+		Message: "Simple Message Send",
 	}
 	err := send_message(msg, &actual_response)
 
@@ -62,12 +62,12 @@ func TestSendSimpleMessage(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 
-	if actual_response.status != expected_response.status {
-		t.Errorf("expected status %d, got %d", expected_response.status, actual_response.status)
+	if actual_response.Status != expected_response.Status {
+		t.Errorf("expected status %d, got %d", expected_response.Status, actual_response.Status)
 	}
 
-	if actual_response.request != expected_response.request {
-		t.Errorf("expected request %s, got %s", expected_response.request, actual_response.request)
+	if actual_response.Request != expected_response.Request {
+		t.Errorf("expected request %s, got %s", expected_response.Request, actual_response.Request)
 	}
 }
 
@@ -83,10 +83,10 @@ func TestSendSimpleMessageWithDevice(t *testing.T) {
 
 	msg := message{
 		BASE_CALL: BASE_CALL{
-			token: TEST_TOKEN,
+			Token: TEST_TOKEN,
 		},
-		message: "Simple Group Message Send",
-		device:  &TEST_DEVICE,
+		Message: "Simple Group Message Send",
+		Device:  &TEST_DEVICE,
 	}
 	err := send_message(msg, &actual_response)
 
@@ -95,12 +95,12 @@ func TestSendSimpleMessageWithDevice(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 
-	if actual_response.status != expected_response.status {
-		t.Errorf("expected status %d, got %d", expected_response.status, actual_response.status)
+	if actual_response.Status != expected_response.Status {
+		t.Errorf("expected status %d, got %d", expected_response.Status, actual_response.Status)
 	}
 
-	if actual_response.request != expected_response.request {
-		t.Errorf("expected request %s, got %s", expected_response.request, actual_response.request)
+	if actual_response.Request != expected_response.Request {
+		t.Errorf("expected request %s, got %s", expected_response.Request, actual_response.Request)
 	}
 }
 
@@ -109,7 +109,7 @@ func TestSendInvalidToken(t *testing.T) {
 	// field.  The status field should be 0, and the request field should be a UUID.  The response has
 	// been taken from actual responses from the Pushover API.
 
-	TEST_RESPONSE_BODY := `{"token":"invalid","errors":["application token is invalid, see https://pushover.net/api"],"status":0,"request":"254174d7-ce3d-4964-a48d-a59dbfa57f75"}`
+	TEST_RESPONSE_BODY = `{"token":"invalid","errors":["application token is invalid, see https://pushover.net/api"],"status":0,"request":"254174d7-ce3d-4964-a48d-a59dbfa57f75"}`
 
 	expected_response := BASE_RESPONSE{}
 	actual_response := BASE_RESPONSE{}
@@ -117,10 +117,10 @@ func TestSendInvalidToken(t *testing.T) {
 
 	msg := message{
 		BASE_CALL: BASE_CALL{
-			token: "bad_token",
-			user:  TEST_USER,
+			Token: "bad_token",
+			User:  TEST_USER,
 		},
-		message: "Simple Invalid Token Message Send",
+		Message: "Simple Invalid Token Message Send",
 	}
 	err := send_message(msg, &actual_response)
 
@@ -128,12 +128,12 @@ func TestSendInvalidToken(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 
-	if actual_response.status != expected_response.status {
-		t.Errorf("expected status %d, got %d", expected_response.status, actual_response.status)
+	if actual_response.Status != expected_response.Status {
+		t.Errorf("expected status %d, got %d", expected_response.Status, actual_response.Status)
 	}
 
-	if actual_response.request != expected_response.request {
-		t.Errorf("expected request %s, got %s", expected_response.request, actual_response.request)
+	if actual_response.Request != expected_response.Request {
+		t.Errorf("expected request %s, got %s", expected_response.Request, actual_response.Request)
 	}
 
 	// TODO: Fox this check
